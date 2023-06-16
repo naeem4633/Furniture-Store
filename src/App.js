@@ -34,13 +34,17 @@ export default function App() {
   const dining = furniture.filter(item => item.category === 'dining');
   const wardrobes = furniture.filter(item => item.category === 'wardrobe');
 
+  const handleSavedItemsChange = (updatedItems) => {
+    setSavedItems(updatedItems);
+  };
+
   return (
     <Router>
       <div className="App">
-        <Header savedItems={savedItems} onChange={() => {}} />
+        <Header savedItems={savedItems} onChange={handleSavedItemsChange} />
         <Routes>
           <Route path="/" element={<Body />} />
-          <Route path="/details/:id" element={<Details />} />
+          <Route path="/details/:id" element={<Details onChange={handleSavedItemsChange} />} />
           <Route path="/beds" element={<Listing furniture={beds} />} />
           <Route path="/dining" element={<Listing furniture={dining} />} />
           <Route path="/wardrobes" element={<Listing furniture={wardrobes} />} />

@@ -2,50 +2,56 @@ import React, {useState, useEffect} from 'react';
 import { Link, useParams } from 'react-router-dom';
 import axios from "axios";
 
-const Details = () => {
-    let {id} = useParams();
+const Details = ({ onChange }) => {
+    let { id } = useParams();
     const [furniture, setFurniture] = useState([]);
-    const [similarFurniture , setSimilarFurniture] = useState([]);
+    const [similarFurniture, setSimilarFurniture] = useState([]);
     let [savedItems, setSavedItems] = useState([]);
     let [quantity, setQuantity] = useState(1);
-
+  
     useEffect(() => {
-        window.scrollTo(0, 0);
-      }, []);
-
-    useEffect(() => {
-        fetchfurnitureItem();
+      window.scrollTo(0, 0);
     }, []);
-
-    const fetchfurnitureItem = async () => {
+  
+    useEffect(() => {
+      const fetchFurnitureItem = async () => {
         try {
-          const furnitureResponse = await axios.get(`http://127.0.0.1:8000/api/single-item/${id}`);
+          const furnitureResponse = await axios.get(
+            `http://127.0.0.1:8000/api/single-item/${id}`
+          );
           const furnitureData = furnitureResponse.data;
           setFurniture(furnitureData);
-          fetchSimilarItems();
         } catch (error) {
           console.error('Error fetching data:', error);
         }
-    };
-    // console.log(furniture);
-
-    const fetchSimilarItems = async () => {
-        try {
-            console.log(furniture.category)
-            const similarFurnitureResponse = await axios.get(`http://127.0.0.1:8000/api/similar-items/${furniture.category}`);
+      };
+  
+      fetchFurnitureItem();
+    }, [id]);
+  
+    useEffect(() => {
+      const fetchSimilarItems = async () => {
+        if (furniture.category) {
+          try {
+            const similarFurnitureResponse = await axios.get(
+              `http://127.0.0.1:8000/api/similar-items/${furniture.category}`
+            );
             const similarFurnitureData = similarFurnitureResponse.data;
             setSimilarFurniture(similarFurnitureData);
-        } catch (error) {
+          } catch (error) {
             console.error('Error fetching data:', error);
+          }
         }
-    };
-    // console.log(similarFurniture);
+      };
+  
+      fetchSimilarItems();
+    }, [furniture]);
 
 
-    const handleSavedItemCreation = (is_cart, is_wishlist) => {
+    const handleSavedItemCreation = (is_cart, is_wishlist) => { 
         const newSavedItem = {
           furniture: furniture,
-          quantity: 1,
+          quantity: 1, 
           is_cart: is_cart,
           is_wishlist: is_wishlist,
         };
@@ -61,6 +67,10 @@ const Details = () => {
             if (response.ok) {
               // Handle successful response here
               console.log("Saved item created successfully.");
+      
+              // Update the savedItems state after successful creation
+              const updatedSavedItems = [...savedItems, newSavedItem];
+              onChange(updatedSavedItems); // Call the onChange prop to update the parent component's state
             } else {
               // Handle error response here
               console.error("Failed to create saved item.");
@@ -71,8 +81,7 @@ const Details = () => {
             console.error("An error occurred while creating saved item:", error);
           });
       };
-
-
+      
       
 
   return (
@@ -80,16 +89,15 @@ const Details = () => {
         <div className='w-full border border-gray-300 border-t-1 border-l-0 border-r-0 border-b-0'></div>
         <div className='w-3/4 mx-auto flex flex-col justify-between py-24'>
             <div className='grid grid-cols-2 gap-4 justify-between w-full mx-auto'>
-                <div className='w-fit border borer-gray-300 mr-8'>
+                <div className='w-fit border borer-gray-300 mr-8 drop-shadow-lg'>
                     <img src={`${furniture.image_path}`}></img>
                 </div>
                 <div className='w-fit ml-8 mt-16'>
                     <div className='flex flex-col'>
                         <div className='flex flex-col'>
                             <p className='text-3xl'>{furniture.name}</p>
-                            <p className='text-2xl'>${furniture.price}</p>
-                            <p className='text-xl'>Design: Woodson</p>
-                            <p>SKU: {furniture.sku}</p>
+                            <p className='text-2xl mt-4'>${furniture.price}</p>
+                            <p className='mt-4'>SKU: {furniture.sku}</p>
                             <p>Size:Single</p>
                             <p>Delivered in : 04 - 06 Working Days</p>
                         </div>

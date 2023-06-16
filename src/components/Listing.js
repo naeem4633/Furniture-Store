@@ -1,20 +1,28 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 const Listing = ( {furniture} ) => {
     const [dropdownOpen, setDropdownOpen] = useState(false);
-    const dropdownRef = useRef(null);
     const delayTimeoutRef = useRef(null);
+    const [sortBy, setSortBy] = useState("");
+
+    const handleSort = (e) => {
+        setSortBy(e.target.value);
+      };
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+      }, []);
 
     const toggleDropdown = () => {
         setDropdownOpen(!dropdownOpen);
     };
 
-    // if (sortBy === "low_to_high") {
-    //     filteredProducts.sort((a, b) => a.price - b.price);
-    //   } else if (sortBy === "high_to_low") {
-    //     filteredProducts.sort((a, b) => b.price - a.price);
-    //   }
+    if (sortBy === "low_to_high") {
+        furniture.sort((a, b) => a.price - b.price);
+      } else if (sortBy === "high_to_low") {
+        furniture.sort((a, b) => b.price - a.price);
+    }
 
     const handleMouseLeave = () => {
         clearTimeout(delayTimeoutRef.current);
@@ -33,7 +41,7 @@ const Listing = ( {furniture} ) => {
                 <p>Filter By</p>
                 </button>
 
-                <div className="relative inline-block flex flex-row" onClick={toggleDropdown} onMouseLeave={handleMouseLeave}>
+                <div className="relative inline-block flex flex-row z-10" onClick={toggleDropdown} onMouseLeave={handleMouseLeave}>
                 <p className='mx-2'>Sort By</p>
                 <button
                     className="dropdown-toggle"
@@ -47,12 +55,12 @@ const Listing = ( {furniture} ) => {
                 {dropdownOpen && (
                     <ul className="bg-white absolute w-48 transform translate-y-1/2 -translate-x-1/4 rounded border-2 border-gray-300 drop-shadow-lg" aria-labelledby="filterDropdown">
                         <li>
-                            <button className="mx-auto mt-4" value="low_to_high">
+                            <button className="mx-auto mt-4" onClick={handleSort} value="low_to_high">
                             Price: Low to high
                             </button>
                         </li>
                         <li>
-                            <button className="mx-auto my-4" value="high_to_low">
+                            <button className="mx-auto my-4" onClick={handleSort} value="high_to_low">
                             Price: High to low
                             </button>
                         </li>

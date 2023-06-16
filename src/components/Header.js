@@ -8,10 +8,25 @@ const Header = ({savedItems, onChange}) => {
   let cartItems = savedItems.filter(item => item.is_cart === true);
   let wishlistItems = savedItems.filter(item => item.is_wishlist === true);
 
+  const handleDelete = (id) => {
+    fetch(`http://127.0.0.1:8000/api/delete-item/${id}`, {
+      method: 'DELETE',
+    })
+      .then(response => response.json())
+      .then(() => {
+        const updatedSavedItems = savedItems.filter(item => item.id !== id);
+        onChange(updatedSavedItems);
+      })
+      .catch(error => console.error(error));
+
+    // Update savedItems state locally to reflect the deletion
+    const updatedSavedItems = savedItems.filter(item => item.id !== id);
+    onChange(updatedSavedItems);
+  };
+
 
   return (
     <>
-    
     <nav class="bg-white border-gray-200 dark:bg-gray-900 border border-gray">
       <div class="max-w-screen flex flex-wrap items-center justify-between mr-80 p-1">
         <p class="flex items-center mx-28">
@@ -71,20 +86,20 @@ const Header = ({savedItems, onChange}) => {
                   <Link onClick = {() => setWishlistIsHovered(true)}
                       onMouseLeave= {() => setWishlistIsHovered(false)} className="block py-2 pl-3 pr-4 text-black rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
                     <img className='h-8' src='../images/heart.png' alt='wishlist'></img>
-                    {wishlistIsHovered && (
-                      <div className="popover absolute w-80 bg-white rounded flex-col transform -translate-x-1/3 mt-3 drop-shadow-lg">
+                    {/*wishlistIsHovered && */(
+                      <div className="popover absolute w-80 bg-white rounded flex-col transform -translate-x-1/3 mt-3 drop-shadow-lg z-10">
                         <div className='flex flex-col'>
                           <p className='m-4 text-lg'>Your Wishlist</p>
                           {
                             wishlistItems.map((item) => (
                               <>
-                              <div className='w-full bg-gray-300'></div>
+                              <div className='w-3/4 mx-auto border border-gray-200 mb-2'></div>
                               <div className='flex flex-row text-sm mx-6 mt-3 mb-5'>
                                 <img className='w-20 h-20' src={item.furniture.image_path}></img>
                                 <div className='flex flex-col text-left justify-between'>
                                   <div className='flex flex-row w-64'>
                                     <p className='ml-4 w-3/5'>{item.furniture.name}</p>
-                                    <img src='../images/delete.png' className='h-4 mt-2'></img>
+                                    <img src='../images/delete.png' className='h-4 mt-2' onClick={() => handleDelete(item.id)}></img>
                                   </div>
                                   <p className='mx-4 mb-2'>$ {item.furniture.price}</p>
                                 </div>
@@ -101,8 +116,8 @@ const Header = ({savedItems, onChange}) => {
                   <Link onClick = {() => setCartIsHovered(true)}
                       onMouseLeave= {() => setCartIsHovered(false)} className="block py-2 pl-3 pr-4 text-black rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
                     <img className='h-8' src='../images/cart.png' alt='cart'></img>
-                    { cartIsHovered && (
-                      <div className="popover absolute w-80 bg-white rounded flex-col transform -translate-x-1/3 mt-3 drop-shadow-lg">
+                    { /*cartIsHovered && */(
+                      <div className="popover absolute w-80 bg-white rounded flex-col transform -translate-x-1/3 mt-3 drop-shadow-lg z-10">
                         <div className='flex flex-col'>
                           <p className='m-4 text-lg'>Your Cart</p>
                           {
@@ -114,7 +129,7 @@ const Header = ({savedItems, onChange}) => {
                                 <div className='flex flex-col text-left justify-between'>
                                   <div className='flex flex-row w-64'>
                                     <p className='ml-4 w-3/5'>{item.furniture.name}</p>
-                                    <img src='../images/delete.png' className='h-4 mt-2'></img>
+                                    <img src='../images/delete.png' className='h-4 mt-2' onClick={() => handleDelete(item.id)}></img>
                                   </div>
                                   <p className='mx-4 mb-2'>$ {item.furniture.price}</p>
                                 </div>
@@ -135,4 +150,4 @@ const Header = ({savedItems, onChange}) => {
   )
 }
 
-export default Header
+export default Header;
