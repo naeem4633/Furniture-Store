@@ -1,10 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import MovingImages from './MovingImages';
+
 
 const Body = () => {
 
   return (
     <>
+    <MovingImages />
     <div className='flex flex-col items-center mt-20'>
         <div className='mb-8 text-2xl underline'>
             <p>SHOP BY CATEGORIES</p>

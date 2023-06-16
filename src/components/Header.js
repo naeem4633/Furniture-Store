@@ -72,21 +72,24 @@ const Header = ({savedItems, onChange}) => {
                       onMouseLeave= {() => setWishlistIsHovered(false)} className="block py-2 pl-3 pr-4 text-black rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
                     <img className='h-8' src='../images/heart.png' alt='wishlist'></img>
                     {wishlistIsHovered && (
-                      <div className="popover absolute w-80 bg-white border border-gray-300 rounded flex-col">
+                      <div className="popover absolute w-80 bg-white rounded flex-col transform -translate-x-1/3 mt-3 drop-shadow-lg">
                         <div className='flex flex-col'>
                           <p className='m-4 text-lg'>Your Wishlist</p>
                           {
                             wishlistItems.map((item) => (
-                              <div className='flex flex-row text-sm mx-6 my-3'>
+                              <>
+                              <div className='w-full bg-gray-300'></div>
+                              <div className='flex flex-row text-sm mx-6 mt-3 mb-5'>
                                 <img className='w-20 h-20' src={item.furniture.image_path}></img>
-                                <div className='flex flex-col justify-between text-left'>
-                                  <div className='flex flex-row'>
-                                    <p className='ml-4'>{item.furniture.name}</p>
-                                    <img src='../images/delete.png' className='h-4 mr-4 justify-right items-right'></img>
+                                <div className='flex flex-col text-left justify-between'>
+                                  <div className='flex flex-row w-64'>
+                                    <p className='ml-4 w-3/5'>{item.furniture.name}</p>
+                                    <img src='../images/delete.png' className='h-4 mt-2'></img>
                                   </div>
                                   <p className='mx-4 mb-2'>$ {item.furniture.price}</p>
                                 </div>
                               </div>
+                              </>
                             ))
                           }
                         </div>
@@ -98,22 +101,25 @@ const Header = ({savedItems, onChange}) => {
                   <Link onClick = {() => setCartIsHovered(true)}
                       onMouseLeave= {() => setCartIsHovered(false)} className="block py-2 pl-3 pr-4 text-black rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
                     <img className='h-8' src='../images/cart.png' alt='cart'></img>
-                    {cartIsHovered && (
-                      <div className="popover absolute w-80 bg-white border border-gray-300 rounded flex-col">
+                    { cartIsHovered && (
+                      <div className="popover absolute w-80 bg-white rounded flex-col transform -translate-x-1/3 mt-3 drop-shadow-lg">
                         <div className='flex flex-col'>
                           <p className='m-4 text-lg'>Your Cart</p>
                           {
                             cartItems.map((item) => (
-                              <div className='flex flex-row text-sm mx-6 my-3'>
+                              <>
+                              <div className='w-3/4 mx-auto border border-gray-200 mb-2'></div>
+                              <div className='flex flex-row text-sm mx-6 mt-3 mb-5'>
                                 <img className='w-20 h-20' src={item.furniture.image_path}></img>
-                                <div className='flex flex-col justify-between text-left'>
-                                  <div className='flex flex-row'>
-                                    <p className='ml-4'>{item.furniture.name}</p>
-                                    <img src='../images/delete.png' className='h-4 mr-4 justify-right items-right'></img>
+                                <div className='flex flex-col text-left justify-between'>
+                                  <div className='flex flex-row w-64'>
+                                    <p className='ml-4 w-3/5'>{item.furniture.name}</p>
+                                    <img src='../images/delete.png' className='h-4 mt-2'></img>
                                   </div>
                                   <p className='mx-4 mb-2'>$ {item.furniture.price}</p>
                                 </div>
                               </div>
+                              </>
                             ))
                           }
                         </div>
@@ -121,7 +127,7 @@ const Header = ({savedItems, onChange}) => {
                     )}
                   </Link>
                 </li>
-            </ul>
+              </ul>
             </div>
         </div>
     </nav>
