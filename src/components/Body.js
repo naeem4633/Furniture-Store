@@ -37,11 +37,17 @@ const Body = () => {
 
     <div className='flex flex-col'>
         <div className='mt-20'>
-            <img src='../images/sample-image-3.jpg'></img>
+            <Link to={'/all'}>
+                <img src='../images/sample-image-3.jpg'></img>
+            </Link>
         </div>
         <div className='flex flex-row justify-between'>
-            <img className='p-6' src='../images/sample-image-4-half.jpg'></img>
-            <img className='p-6' src='../images/sample-image-5-half.jpg'></img>
+            <Link to={'/all'}>
+                <img className='p-6' src='../images/sample-image-4-half.jpg'></img>
+            </Link>
+            <Link to={'/all'}>
+                <img className='p-6' src='../images/sample-image-5-half.jpg'></img>
+            </Link>
         </div>
     </div>
 </>

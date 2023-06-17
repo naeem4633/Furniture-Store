@@ -52,7 +52,6 @@ const Header = ({savedItems, onChange}) => {
       </div>
     </nav>
 
-
     <nav class="bg-white border-gray-200 dark:bg-gray-900">
         <div class="max-w-screen flex flex-wrap items-center justify-between mr-64 p-4">
         <Link to={'/'} class="flex items-center mx-24">
@@ -83,60 +82,108 @@ const Header = ({savedItems, onChange}) => {
                 </Link>
                 </li>
                 <li>
-                  <Link onClick = {() => setWishlistIsHovered(true)}
-                      onMouseLeave= {() => setWishlistIsHovered(false)} className="block py-2 pl-3 pr-4 text-black rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
-                    <img className='h-8' src='../images/heart.png' alt='wishlist'></img>
-                    {/*wishlistIsHovered && */(
-                      <div className="popover absolute w-80 bg-white rounded flex-col transform -translate-x-1/3 mt-3 drop-shadow-lg z-10">
-                        <div className='flex flex-col'>
-                          <p className='m-4 text-lg'>Your Wishlist</p>
-                          {
-                            wishlistItems.map((item) => (
-                              <>
-                              <div className='w-3/4 mx-auto border border-gray-200 mb-2'></div>
-                              <div className='flex flex-row text-sm mx-6 mt-3 mb-5'>
-                                <img className='w-20 h-20' src={item.furniture.image_path}></img>
-                                <div className='flex flex-col text-left justify-between'>
-                                  <div className='flex flex-row w-64'>
-                                    <p className='ml-4 w-3/5'>{item.furniture.name}</p>
-                                    <img src='../images/delete.png' className='h-4 mt-2' onClick={() => handleDelete(item.id)}></img>
+                <Link
+                    onClick={() => setWishlistIsHovered(true)}
+                    onMouseLeave={() => setWishlistIsHovered(false)}
+                    className="block py-2 pl-3 pr-4 text-black rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                  >
+                    <img className="h-8" src="../images/heart.png" alt="cart" />
+                    { (
+                      <div className="popover absolute w-80 max-h-[75vh] bg-white rounded flex-col transform -translate-x-1/3 mt-3 drop-shadow-lg z-10">
+                        <div className="flex flex-col">
+                          <p className="m-4 text-lg">Your Wishlist</p>
+                          {wishlistItems.length > 0 && (
+                            <div
+                              className={`cart-items-container ${
+                                wishlistItems.length > 5 ? 'overflow-y-scroll overflow-x-hidden' : ''
+                              }`}
+                              style={{ maxHeight: 'calc(75vh - 120px)' }}
+                            >
+                              {wishlistItems.map((item) => (
+                                <>
+                                  <div className="w-3/4 mx-auto border border-gray-200 mb-2"></div>
+                                  <div className="flex flex-row text-sm mx-6 mt-3 mb-5">
+                                    <img
+                                      className="w-20 h-20"
+                                      src={item.furniture.image_path}
+                                      alt={item.furniture.name}
+                                    />
+                                    <div className="flex flex-col text-left justify-between">
+                                      <div className="flex flex-row w-64">
+                                        <p className="ml-4 w-3/5">
+                                          {item.furniture.name} ({item.quantity})
+                                        </p>
+                                        <img
+                                          src="../images/delete.png"
+                                          className="h-4 mt-2"
+                                          onClick={() => handleDelete(item.id)}
+                                          alt="delete"
+                                        />
+                                      </div>
+                                      <p className="mx-4 mb-2">USD {item.furniture.price}</p>
+                                    </div>
                                   </div>
-                                  <p className='mx-4 mb-2'>$ {item.furniture.price}</p>
-                                </div>
-                              </div>
-                              </>
-                            ))
-                          }
+                                </>
+                              ))}
+                            </div>
+                          )}
+                          <Link to="/checkout" className="w-40 h-12 bg-green-500 mx-auto my-2">
+                            <p className="text-lg text-white my-2">Checkout</p>
+                          </Link>
                         </div>
                       </div>
                     )}
                   </Link>
                 </li>
                 <li>
-                  <Link onClick = {() => setCartIsHovered(true)}
-                      onMouseLeave= {() => setCartIsHovered(false)} className="block py-2 pl-3 pr-4 text-black rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
-                    <img className='h-8' src='../images/cart.png' alt='cart'></img>
-                    { /*cartIsHovered && */(
-                      <div className="popover absolute w-80 bg-white rounded flex-col transform -translate-x-1/3 mt-3 drop-shadow-lg z-10">
-                        <div className='flex flex-col'>
-                          <p className='m-4 text-lg'>Your Cart</p>
-                          {
-                            cartItems.map((item) => (
-                              <>
-                              <div className='w-3/4 mx-auto border border-gray-200 mb-2'></div>
-                              <div className='flex flex-row text-sm mx-6 mt-3 mb-5'>
-                                <img className='w-20 h-20' src={item.furniture.image_path}></img>
-                                <div className='flex flex-col text-left justify-between'>
-                                  <div className='flex flex-row w-64'>
-                                    <p className='ml-4 w-3/5'>{item.furniture.name}</p>
-                                    <img src='../images/delete.png' className='h-4 mt-2' onClick={() => handleDelete(item.id)}></img>
+                  <Link
+                    onClick={() => setCartIsHovered(true)}
+                    onMouseLeave={() => setCartIsHovered(false)}
+                    className="block py-2 pl-3 pr-4 text-black rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                  >
+                    <img className="h-8" src="../images/cart.png" alt="cart" />
+                    { (
+                      <div className="popover absolute w-80 max-h-[75vh] bg-white rounded flex-col transform -translate-x-1/3 mt-3 drop-shadow-lg z-10">
+                        <div className="flex flex-col">
+                          <p className="m-4 text-lg">Your Cart</p>
+                          {cartItems.length > 0 && (
+                            <div
+                              className={`cart-items-container ${
+                                cartItems.length > 5 ? 'overflow-y-scroll overflow-x-hidden' : ''
+                              }`}
+                              style={{ maxHeight: 'calc(75vh - 120px)' }}
+                            >
+                              {cartItems.map((item) => (
+                                <>
+                                  <div className="w-3/4 mx-auto border border-gray-200 mb-2"></div>
+                                  <div className="flex flex-row text-sm mx-6 mt-3 mb-5">
+                                    <img
+                                      className="w-20 h-20"
+                                      src={item.furniture.image_path}
+                                      alt={item.furniture.name}
+                                    />
+                                    <div className="flex flex-col text-left justify-between">
+                                      <div className="flex flex-row w-64">
+                                        <p className="ml-4 w-3/5">
+                                          {item.furniture.name} ({item.quantity})
+                                        </p>
+                                        <img
+                                          src="../images/delete.png"
+                                          className="h-4 mt-2"
+                                          onClick={() => handleDelete(item.id)}
+                                          alt="delete"
+                                        />
+                                      </div>
+                                      <p className="mx-4 mb-2">USD {item.furniture.price}</p>
+                                    </div>
                                   </div>
-                                  <p className='mx-4 mb-2'>$ {item.furniture.price}</p>
-                                </div>
-                              </div>
-                              </>
-                            ))
-                          }
+                                </>
+                              ))}
+                            </div>
+                          )}
+                          <Link to="/checkout" className="w-40 h-12 bg-green-500 hover:bg-green-700 mx-auto my-2">
+                            <p className="text-lg text-white my-2">Checkout</p>
+                          </Link>
                         </div>
                       </div>
                     )}

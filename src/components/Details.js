@@ -8,6 +8,7 @@ const Details = ({ onChange }) => {
     const [similarFurniture, setSimilarFurniture] = useState([]);
     let [savedItems, setSavedItems] = useState([]);
     let [quantity, setQuantity] = useState(1);
+    const [isClicked, setIsClicked] = useState(false);
   
     useEffect(() => {
       window.scrollTo(0, 0);
@@ -51,7 +52,7 @@ const Details = ({ onChange }) => {
     const handleSavedItemCreation = (is_cart, is_wishlist) => { 
         const newSavedItem = {
           furniture: furniture,
-          quantity: 1, 
+          quantity: quantity, 
           is_cart: is_cart,
           is_wishlist: is_wishlist,
         };
@@ -81,12 +82,10 @@ const Details = ({ onChange }) => {
             console.error("An error occurred while creating saved item:", error);
           });
       };
-      
-      
 
   return (
     <>
-        <div className='w-full border border-gray-300 border-t-1 border-l-0 border-r-0 border-b-0'></div>
+        <div className='bg-white w-full border border-gray-300 border-t-1 border-l-0 border-r-0 border-b-0'></div>
         <div className='w-3/4 mx-auto flex flex-col justify-between py-24'>
             <div className='grid grid-cols-2 gap-4 justify-between w-full mx-auto'>
                 <div className='w-fit border borer-gray-300 mr-8 drop-shadow-lg'>
@@ -94,20 +93,20 @@ const Details = ({ onChange }) => {
                 </div>
                 <div className='w-fit ml-8 mt-16'>
                     <div className='flex flex-col'>
-                        <div className='flex flex-col'>
+                        <div className='flex flex-col text-left'>
                             <p className='text-3xl'>{furniture.name}</p>
-                            <p className='text-2xl mt-4'>${furniture.price}</p>
-                            <p className='mt-4'>SKU: {furniture.sku}</p>
-                            <p>Size:Single</p>
-                            <p>Delivered in : 04 - 06 Working Days</p>
+                            <p className='text-2xl mt-2'>${furniture.price}</p>
+                            <p className='mt-2 text-lg'>SKU : {furniture.sku}</p>
+                            <p className='text-lg'>Size : Single</p>
+                            <p className='text-lg'>Delivered in : 04 - 06 Working Days</p>
                         </div>
                         <div className='flex flex-col border-gray-200 my-6'>
                             <div className='flex flex-row'>
-                                <button onClick={() => setQuantity(quantity > 1 ? quantity - 1 : 1)} className='w-12 h-12 bg-green-500'>
+                                <button onClick={() => setQuantity(quantity > 1 ? quantity - 1 : 1)} className='w-12 h-12 bg-green-500 hover:bg-green-700'>
                                     <img className='w-6 m-3' src='../images/minus.png'></img>
                                 </button>
                                 <p className='border border-green-500 w-24 h-12 mx-2 px-11 pt-2.5 text-lg'>{quantity}</p>
-                                <button onClick={() => setQuantity(quantity + 1)} className='w-12 h-12 bg-green-500'>
+                                <button onClick={() => setQuantity(quantity + 1)} className='w-12 h-12 bg-green-500 hover:bg-green-700'>
                                     <img className='w-6 m-3' src='../images/plus.png'></img>
                                 </button>
                                 <Link onClick={() => handleSavedItemCreation(false, true)} className='w-12 h-12 p-3 border border-gray-300 mx-2'>
@@ -115,14 +114,14 @@ const Details = ({ onChange }) => {
                                 </Link>
                             </div>
                         </div> 
-                        <Link onClick={() => handleSavedItemCreation(true, false)} className='w-52 h-12 bg-green-500'>
-                            <p className='text-xl text-white'>Add To Cart</p>
+                        <Link onClick={() => handleSavedItemCreation(true, false, quantity)} className='w-52 h-12 bg-green-500 hover:bg-green-700'>
+                            <p className='text-xl text-white my-2 mx-auto'>Add To Cart</p>
                         </Link>
                         <div className='border border-gray-200 my-4'></div>
-                        <div className='flex flex-col border-gray-200'>
+                        <div className='flex flex-col border-gray-200 text-left'>
                             <ul>
                                 <li><p className='text-xl'>Installment Plans Available</p></li>
-                                <li><p className='text-red-500 underline'>Starting as low as USD 76</p></li>
+                                <li><p className='text-red-500 underline'>Starting as low as USD {Math.round(furniture.price/11)}</p></li>
                             </ul>
                         </div>
                     </div>
@@ -137,17 +136,18 @@ const Details = ({ onChange }) => {
         </div>
         <div className='w-3/4 mx-auto flex flex-col justify-between mt-24'>
             <p className='text-2xl'>Products similar to this item</p>
-            <div className="grid grid-rows-1 grid-cols-3 gap-x-16 gap-y-8 my-8 ">
+            <div className="grid grid-rows-1 grid-cols-3 gap-x-16 gap-y-8 my-8 drop-shadow-md">
                     {similarFurniture.map((furniture) => (
-                        <Link key={furniture.id} to={`/details/${furniture.id}`}>
-                            <div className="w-[27rem] mx-auto">
-                                <img className='w-full' src={`${furniture.image_path}`}></img>
-                                <div className='flex flex-col justify-between my-6 h-14'>
-                                    <p>{furniture.name}</p>
-                                    <p className='font-bold'>{furniture.price}</p>
-                                </div>
-                            </div>
-                        </Link>
+                        <Link key={furniture.id} to={`/details/${furniture.id}`} onClick={() => window.scrollTo(0, 0)}>
+                        <div className="w-[27rem] mx-auto">
+                          <img className="w-full" src={`${furniture.image_path}`} alt={furniture.name} />
+                          <div className="flex flex-col justify-between my-6 h-14">
+                            <p>{furniture.name}</p>
+                            <p className="font-bold">{furniture.price}</p>
+                          </div>
+                        </div>
+                      </Link>
+                      
                     ))}
             </div>
         </div>
