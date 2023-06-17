@@ -6,6 +6,7 @@ const Listing = ( {furniture} ) => {
     const delayTimeoutRef = useRef(null);
     const [sortBy, setSortBy] = useState("");
 
+
     const handleSort = (e) => {
         setSortBy(e.target.value);
       };
@@ -74,11 +75,11 @@ const Listing = ( {furniture} ) => {
             <div className="mx-auto w-full max-w-screen-xl py-6 lg:py-8 flex flex-row">
                 <div className="grid grid-cols-3 gap-x-32 gap-y-8 my-8">
                     {furniture.map((item) => (
-                    <Link to={`/details/${item.id}`} className="w-[27rem] mx-auto drop-shadow-lg transform transition-all duration-500 hover:scale-105" key={item.id}>
+                    <Link to={`/details/${item.id}`} className="w-[27rem] mx-auto drop-shadow-lg" key={item.id}>
                         <img className='w-full rounded' src={item.image_path}></img>
-                        <div className='flex flex-col justify-between my-6 h-14'>
-                        <p className=''>{item.name}</p>
-                        <p className='font-bold'>$ {item.price}</p>
+                        <div className='flex flex-col justify-between my-6 h-14 text-left text-xl'>
+                        <p>{item.name}</p>
+                        <p className='font-medium'>USD {item.price}</p>
                         </div>
                     </Link>
                     ))}
