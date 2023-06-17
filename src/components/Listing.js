@@ -54,7 +54,7 @@ const Listing = ( {furniture} ) => {
                     <img src="../images/down-arrow.png" alt="Down arrow icon" className="w-6 h-6" />
                 </button>
                 {dropdownOpen && (
-                    <ul className="bg-white absolute w-48 transform translate-y-1/2 -translate-x-1/4 rounded border-2 border-gray-300 drop-shadow-lg" aria-labelledby="filterDropdown">
+                    <ul className="bg-white absolute w-48 transform translate-y-1/3 -translate-x-1/4 rounded border-2 border-gray-300 drop-shadow-lg" aria-labelledby="filterDropdown">
                         <li>
                             <button className="mx-auto mt-4" onClick={handleSort} value="low_to_high">
                             Price: Low to high

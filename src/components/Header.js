@@ -1,9 +1,23 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-const Header = ({savedItems, onChange}) => {
+const Header = ({furniture, savedItems, onChange}) => {
   const [cartIsHovered, setCartIsHovered] = useState(false);
   const [wishlistIsHovered, setWishlistIsHovered] = useState(false);
+  const [searchDiv, showSearchDiv] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleSearch = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const filteredProducts = furniture
+    .filter((item) => item.name && item.name.toLowerCase().includes(searchQuery.toLowerCase()))
+    .slice();
+
+  const toggleSearchDiv = (visible) => {
+    showSearchDiv(visible);
+  };
 
   let cartItems = savedItems.filter(item => item.is_cart === true);
   let wishlistItems = savedItems.filter(item => item.is_wishlist === true);
@@ -59,13 +73,39 @@ const Header = ({savedItems, onChange}) => {
             <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">IKEA Home</span>
         </Link>
         <div class="flex md:order-1">
-            <button type="button" data-collapse-toggle="navbar-search" aria-controls="navbar-search" aria-expanded="false" class="md:hidden text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5">
-            <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path></svg>
-            <span class="sr-only">Search</span>
-            </button>
-            <div class="relative hidden md:block">
-            <input type="text" id="search-navbar" class="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" style={{'width': '600px', 'margin-left': '-40px'}} placeholder="Search for products..."/>
-            </div>
+        <div className='flex flex-col'>
+          <div class="relative hidden md:block">
+            <input
+              type="text"
+              id="search-navbar"
+              class="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 bg-gray-50 focus:ring-gray-500 focus:border-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              style={{ width: '600px'}}
+              placeholder="Search for products..."
+              onInput={() => toggleSearchDiv(true)}
+              onBlur={() => toggleSearchDiv(false)}
+              value={searchQuery}
+              onChange={handleSearch}/>
+          </div>
+          <div className={`absolute max-h-[75vh] fixed border border-black border-t-0 bg-white z-20 translate mt-10 ${searchDiv ? 'block' : 'hidden'} overflow-auto  `} style={{ width: '600px'}}>  
+            {filteredProducts.map((item) => (
+              <>
+                <Link to={`/details/${item.id}`} key={item.id}>
+                  <div className="flex flex-row text-sm w-3/4 mx-auto text-left my-2 bg-white hover:bg-gray-200 p-2">
+                    <img
+                      className="w-20 h-20 rounded"
+                      src={item.image_path}
+                      alt={item.name}
+                    />
+                    <p className="ml-4 w-full my-auto text-base">
+                          {item.name}
+                    </p>
+                  </div>
+                </Link>
+                <div className='w-3/4 mx-auto border border-gray-300 my-2'></div>
+              </>
+            ))}
+          </div>
+        </div>
             <button data-collapse-toggle="navbar-search" type="button" class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-search" aria-expanded="false">
             <span class="sr-only">Open menu</span>
             <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
@@ -82,14 +122,12 @@ const Header = ({savedItems, onChange}) => {
                 </Link>
                 </li>
                 <li>
-                <Link
-                    onClick={() => setWishlistIsHovered(true)}
-                    onMouseLeave={() => setWishlistIsHovered(false)}
-                    className="block py-2 pl-3 pr-4 text-black rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-                  >
-                    <img className="h-8" src="../images/heart.png" alt="cart" />
-                    { (
-                      <div className="popover absolute w-80 max-h-[75vh] bg-white rounded flex-col transform -translate-x-1/3 mt-3 drop-shadow-lg z-10">
+                <Link onClick={() => {setWishlistIsHovered(true); setCartIsHovered(false);}}
+                    className="block py-2 pl-3 pr-4 text-black rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
+                    <img  className="h-8" src="../images/heart.png" alt="cart" />
+                    {wishlistIsHovered && (
+                      <div onMouseEnter={() => setWishlistIsHovered(true)}
+                      onMouseLeave={() => setWishlistIsHovered(false)} className="popover absolute w-80 max-h-[75vh] bg-white rounded flex-col transform -translate-x-1/3 mt-3 drop-shadow-lg z-10">
                         <div className="flex flex-col">
                           <p className="m-4 text-lg">Your Wishlist</p>
                           {wishlistItems.length > 0 && (
@@ -97,8 +135,7 @@ const Header = ({savedItems, onChange}) => {
                               className={`cart-items-container ${
                                 wishlistItems.length > 5 ? 'overflow-y-scroll overflow-x-hidden' : ''
                               }`}
-                              style={{ maxHeight: 'calc(75vh - 120px)' }}
-                            >
+                              style={{ maxHeight: 'calc(75vh - 120px)' }}>
                               {wishlistItems.map((item) => (
                                 <>
                                   <div className="w-3/4 mx-auto border border-gray-200 mb-2"></div>
@@ -127,9 +164,6 @@ const Header = ({savedItems, onChange}) => {
                               ))}
                             </div>
                           )}
-                          <Link to="/checkout" className="w-40 h-12 bg-green-500 mx-auto my-2">
-                            <p className="text-lg text-white my-2">Checkout</p>
-                          </Link>
                         </div>
                       </div>
                     )}
@@ -137,16 +171,16 @@ const Header = ({savedItems, onChange}) => {
                 </li>
                 <li>
                   <Link
-                    onClick={() => setCartIsHovered(true)}
-                    onMouseLeave={() => setCartIsHovered(false)}
+                    onClick={() => {setCartIsHovered(true); setWishlistIsHovered(false);}}
                     className="block py-2 pl-3 pr-4 text-black rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                   >
                     <img className="h-8" src="../images/cart.png" alt="cart" />
-                    { (
-                      <div className="popover absolute w-80 max-h-[75vh] bg-white rounded flex-col transform -translate-x-1/3 mt-3 drop-shadow-lg z-10">
+                    {cartIsHovered && (
+                      <div onMouseEnter={() => setCartIsHovered(true)}
+                      onMouseLeave={() => setCartIsHovered(false)} className="popover absolute w-80 max-h-[75vh] bg-white rounded flex-col transform -translate-x-1/3 mt-3 drop-shadow-lg z-10">
                         <div className="flex flex-col">
                           <p className="m-4 text-lg">Your Cart</p>
-                          {cartItems.length > 0 && (
+                          {cartItems.length > 0 && (   
                             <div
                               className={`cart-items-container ${
                                 cartItems.length > 5 ? 'overflow-y-scroll overflow-x-hidden' : ''
@@ -174,14 +208,14 @@ const Header = ({savedItems, onChange}) => {
                                           alt="delete"
                                         />
                                       </div>
-                                      <p className="mx-4 mb-2">USD {item.furniture.price}</p>
+                                      <p className="mx-4 mb-2">$ {item.furniture.price}</p>
                                     </div>
                                   </div>
                                 </>
                               ))}
                             </div>
                           )}
-                          <Link to="/checkout" className="w-40 h-12 bg-green-500 hover:bg-green-700 mx-auto my-2">
+                          <Link to="/checkout" className="w-1/2 h-1/2 bg-green-500 hover:bg-green-700 mx-auto mt-2 mb-4">
                             <p className="text-lg text-white my-2">Checkout</p>
                           </Link>
                         </div>

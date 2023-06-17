@@ -2,13 +2,11 @@ import React, {useState, useEffect} from 'react';
 import { Link, useParams } from 'react-router-dom';
 import axios from "axios";
 
-const Details = ({ onChange }) => {
+const Details = ({ savedItems, onChange }) => {
     let { id } = useParams();
     const [furniture, setFurniture] = useState([]);
     const [similarFurniture, setSimilarFurniture] = useState([]);
-    let [savedItems, setSavedItems] = useState([]);
     let [quantity, setQuantity] = useState(1);
-    const [isClicked, setIsClicked] = useState(false);
   
     useEffect(() => {
       window.scrollTo(0, 0);
@@ -33,7 +31,7 @@ const Details = ({ onChange }) => {
     useEffect(() => {
       const fetchSimilarItems = async () => {
         if (furniture.category) {
-          try {
+    try {
             const similarFurnitureResponse = await axios.get(
               `http://127.0.0.1:8000/api/similar-items/${furniture.category}`
             );
@@ -95,7 +93,7 @@ const Details = ({ onChange }) => {
                     <div className='flex flex-col'>
                         <div className='flex flex-col text-left'>
                             <p className='text-3xl'>{furniture.name}</p>
-                            <p className='text-2xl mt-2'>${furniture.price}</p>
+                            <p className='text-2xl mt-2'>USD {furniture.price}</p>
                             <p className='mt-2 text-lg'>SKU : {furniture.sku}</p>
                             <p className='text-lg'>Size : Single</p>
                             <p className='text-lg'>Delivered in : 04 - 06 Working Days</p>
@@ -109,11 +107,11 @@ const Details = ({ onChange }) => {
                                 <button onClick={() => setQuantity(quantity + 1)} className='w-12 h-12 bg-green-500 hover:bg-green-700'>
                                     <img className='w-6 m-3' src='../images/plus.png'></img>
                                 </button>
-                                <Link onClick={() => handleSavedItemCreation(false, true)} className='w-12 h-12 p-3 border border-gray-300 mx-2'>
+                                <Link onClick={() => handleSavedItemCreation(false, true)} className=' bg-white hover:bg-gray-200 w-12 h-12 p-3 border border-gray-300 mx-2'>
                                     <img src='../images/heart.png'></img>
                                 </Link>
                             </div>
-                        </div> 
+                        </div>
                         <Link onClick={() => handleSavedItemCreation(true, false, quantity)} className='w-52 h-12 bg-green-500 hover:bg-green-700'>
                             <p className='text-xl text-white my-2 mx-auto'>Add To Cart</p>
                         </Link>
@@ -141,13 +139,12 @@ const Details = ({ onChange }) => {
                         <Link key={furniture.id} to={`/details/${furniture.id}`} onClick={() => window.scrollTo(0, 0)}>
                         <div className="w-[27rem] mx-auto">
                           <img className="w-full" src={`${furniture.image_path}`} alt={furniture.name} />
-                          <div className="flex flex-col justify-between my-6 h-14">
+                          <div className="flex flex-col justify-between my-6 h-14 text-left text-xl">
                             <p>{furniture.name}</p>
-                            <p className="font-bold">{furniture.price}</p>
+                            <p className="font-medium">USD {furniture.price}</p>
                           </div>
                         </div>
                       </Link>
-                      
                     ))}
             </div>
         </div>

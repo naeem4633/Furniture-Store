@@ -35,7 +35,7 @@ const Body = () => {
         </div>
     </div>
 
-    <div className='flex flex-col'>
+    <div className='flex flex-col w-full'>
         <div className='mt-20'>
             <Link to={'/all'}>
                 <img src='../images/sample-image-3.jpg'></img>

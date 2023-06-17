@@ -32,7 +32,6 @@ export default function App() {
 
   // Filter furniture by category
   const beds = furniture.filter(item => item.category === 'bed');
-  console.log(beds);
   const dining = furniture.filter(item => item.category === 'dining');
   const wardrobes = furniture.filter(item => item.category === 'wardrobe');
 
@@ -43,10 +42,10 @@ export default function App() {
   return (
     <Router>
       <div className="App">
-        <Header savedItems={savedItems} onChange={handleSavedItemsChange} />
+        <Header furniture={furniture} savedItems={savedItems} onChange={handleSavedItemsChange} />
         <Routes>
           <Route path="/" element={<Body />} />
-          <Route path="/details/:id" element={<Details onChange={handleSavedItemsChange} />} />
+          <Route path="/details/:id" element={<Details savedItems={savedItems} onChange={handleSavedItemsChange} />} />
           <Route path="/all" element={<Listing furniture={furniture} />} />
           <Route path="/beds" element={<Listing furniture={beds} />} />
           <Route path="/dining" element={<Listing furniture={dining} />} />
