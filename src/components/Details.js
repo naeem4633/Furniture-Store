@@ -129,7 +129,7 @@ const Details = ({ savedItems, onChange }) => {
         <div className='w-3/4 mx-auto flex flex-col justify-between'>
             <p className='text-xl ml-16 mb-2'>PRODUCT DESCRIPTION</p>
             <div className='w-full px-16 py-12 border border-gray-200 text-xl'>
-                <p className='mb-6 font-medium'>{furniture.description}</p>
+                <p className='mb-6 font-medium text-left'>{furniture.description}</p>
             </div>
         </div>
         <div className='w-3/4 mx-auto flex flex-col justify-between mt-24'>
@@ -137,8 +137,8 @@ const Details = ({ savedItems, onChange }) => {
             <div className="grid grid-rows-1 grid-cols-3 gap-x-16 gap-y-8 my-8 drop-shadow-md">
                     {similarFurniture.map((furniture) => (
                         <Link key={furniture.id} to={`/details/${furniture.id}`} onClick={() => window.scrollTo(0, 0)}>
-                        <div className="w-[27rem] mx-auto">
-                          <img className="w-full" src={`${furniture.image_path}`} alt={furniture.name} />
+                        <div className="w-full mx-auto">
+                          <img className="rounded" src={`${furniture.image_path}`} alt={furniture.name} />
                           <div className="flex flex-col justify-between my-6 h-14 text-left text-xl">
                             <p>{furniture.name}</p>
                             <p className="font-medium">USD {furniture.price}</p>

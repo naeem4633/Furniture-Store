@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
+
 const Header = ({furniture, savedItems, onChange}) => {
   const [cartIsHovered, setCartIsHovered] = useState(false);
   const [wishlistIsHovered, setWishlistIsHovered] = useState(false);
@@ -72,45 +73,48 @@ const Header = ({furniture, savedItems, onChange}) => {
             <img src="../images/sofa.png" class="h-8 mr-3" alt="..." />
             <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">IKEA Home</span>
         </Link>
-        <div class="flex md:order-1">
-        <div className='flex flex-col'>
-          <div class="relative hidden md:block">
-            <input
-              type="text"
-              id="search-navbar"
-              class="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 bg-gray-50 focus:ring-gray-500 focus:border-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              style={{ width: '600px'}}
-              placeholder="Search for products..."
-              onInput={() => toggleSearchDiv(true)}
-              onBlur={() => toggleSearchDiv(false)}
-              value={searchQuery}
-              onChange={handleSearch}/>
-          </div>
-          <div className={`absolute max-h-[75vh] fixed border border-black border-t-0 bg-white z-20 translate mt-10 ${searchDiv ? 'block' : 'hidden'} overflow-auto  `} style={{ width: '600px'}}>  
-            {filteredProducts.map((item) => (
-              <>
-                <Link to={`/details/${item.id}`} key={item.id}>
-                  <div className="flex flex-row text-sm w-3/4 mx-auto text-left my-2 bg-white hover:bg-gray-200 p-2">
-                    <img
-                      className="w-20 h-20 rounded"
-                      src={item.image_path}
-                      alt={item.name}
-                    />
-                    <p className="ml-4 w-full my-auto text-base">
-                          {item.name}
-                    </p>
-                  </div>
-                </Link>
-                <div className='w-3/4 mx-auto border border-gray-300 my-2'></div>
-              </>
-            ))}
-          </div>
-        </div>
+
+          <div className='flex flex-col'>
+            <div class="relative hidden md:block">
+              <input
+                type="text"
+                id="search-navbar"
+                class="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 bg-gray-50 focus:ring-gray-500 focus:border-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                style={{ width: '600px'}}
+                placeholder="Search for products..."
+                autocomplete="off"
+                onInput={() => toggleSearchDiv(true)}
+                onBlur={() => toggleSearchDiv(false)}
+                value={searchQuery}
+                onChange={handleSearch}/>
+            </div>
+            <div className={`absolute max-h-[75vh] fixed border border-black border-t-0 bg-white z-20 translate mt-10 ${(searchDiv && filteredProducts.length > 1) ? 'block' : 'hidden'} overflow-auto`} style={{ width: '600px'}}>  
+              <p className='mx-auto text-lg font-medium p-4'>Search Results</p>
+              <div className='border border-gray-200 w-full'></div>
+                {filteredProducts.map((item) => (
+                  <>
+                    <Link onClick={() => console.log('clicked item')} to={`/details/${item.id}`} key={item.id} >
+                      <div className="flex flex-row text-sm w-3/4 mx-auto text-left my-2 bg-white hover:bg-gray-200 p-2">
+                        <img
+                          className="w-20 h-20 rounded"
+                          src={item.image_path}
+                          alt={item.name}
+                        />
+                        <p className="ml-4 w-full my-auto text-base">
+                              {item.name}
+                        </p>
+                      </div>
+                    </Link>
+                    <div className='w-3/4 mx-auto border border-gray-300 my-2'></div>
+                  </>
+                ))}
+            </div>
+          
             <button data-collapse-toggle="navbar-search" type="button" class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-search" aria-expanded="false">
             <span class="sr-only">Open menu</span>
             <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
             </button>
-        </div>
+          </div>
             <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-search">
             <div class="relative mt-3 md:hidden">
                 <input type="text" id="search-navbar" class="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" style={{'width': '200%', 'margin-left': '-50px'}} placeholder="Search..."/>
@@ -215,9 +219,9 @@ const Header = ({furniture, savedItems, onChange}) => {
                               ))}
                             </div>
                           )}
-                          <Link to="/checkout" className="w-1/2 h-1/2 bg-green-500 hover:bg-green-700 mx-auto mt-2 mb-4">
+                          {cartItems.length > 0 ? (<Link to="/checkout" className="w-1/2 h-1/2 bg-green-500 hover:bg-green-700 mx-auto mt-2 mb-4">
                             <p className="text-lg text-white my-2">Checkout</p>
-                          </Link>
+                          </Link>) : (<p className='w-3/4 mx-auto pt-2 mb-4 text-md border border-gray-300 border-t-1 border-b-0 border-x-0'>No Items</p>)}
                         </div>
                       </div>
                     )}

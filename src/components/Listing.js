@@ -51,7 +51,7 @@ const Listing = ( {furniture} ) => {
                     aria-haspopup="true"
                     aria-expanded={dropdownOpen}
                 >
-                    <img src="../images/down-arrow.png" alt="Down arrow icon" className="w-6 h-6" />
+                <img src="../images/down-arrow.png" alt="Down arrow icon" className="w-6 h-6" />
                 </button>
                 {dropdownOpen && (
                     <ul className="bg-white absolute w-48 transform translate-y-1/3 -translate-x-1/4 rounded border-2 border-gray-300 drop-shadow-lg" aria-labelledby="filterDropdown">
@@ -73,9 +73,9 @@ const Listing = ( {furniture} ) => {
 
         <div className="w-3/4 bg-white dark:bg-gray-900 border border-gray-300 border-t-1 border-l-0 border-r-0 border-b-0 mx-auto">
             <div className="mx-auto w-full max-w-screen-xl py-6 lg:py-8 flex flex-row">
-                <div className="grid grid-cols-3 gap-x-32 gap-y-8 my-8">
+                <div className="grid grid-cols-3 gap-x-12 gap-y-8 my-8">
                     {furniture.map((item) => (
-                    <Link to={`/details/${item.id}`} className="w-[27rem] mx-auto drop-shadow-lg" key={item.id}>
+                    <Link to={`/details/${item.id}`} className="mx-auto drop-shadow-lg" key={item.id}>
                         <img className='w-full rounded' src={item.image_path}></img>
                         <div className='flex flex-col justify-between my-6 h-14 text-left text-xl'>
                         <p>{item.name}</p>

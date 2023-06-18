@@ -43,20 +43,22 @@ export default function App() {
     <Router>
       <div className="App">
         <Header furniture={furniture} savedItems={savedItems} onChange={handleSavedItemsChange} />
-        <Routes>
-          <Route path="/" element={<Body />} />
-          <Route path="/details/:id" element={<Details savedItems={savedItems} onChange={handleSavedItemsChange} />} />
-          <Route path="/all" element={<Listing furniture={furniture} />} />
-          <Route path="/beds" element={<Listing furniture={beds} />} />
-          <Route path="/dining" element={<Listing furniture={dining} />} />
-          <Route path="/wardrobes" element={<Listing furniture={wardrobes} />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/wishlist" element={<Wishlist />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/checkout" element={<Checkout />} />
-          <Route path="/under-development" element={<UnderDevelopment />} />
-          {/* <Route path="/confirmOrder" element={<ConfirmOrder />} /> */}
-        </Routes>
+        <div className="App-body">
+          <Routes>
+            <Route path="/" element={<Body />} />
+            <Route path="/details/:id" element={<Details savedItems={savedItems} onChange={handleSavedItemsChange} />} />
+            <Route path="/all" element={<Listing furniture={furniture} />} />
+            <Route path="/beds" element={<Listing furniture={beds} />} />
+            <Route path="/dining" element={<Listing furniture={dining} />} />
+            <Route path="/wardrobes" element={<Listing furniture={wardrobes} />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/wishlist" element={<Wishlist />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/checkout" element={<Checkout />} />
+            <Route path="/under-development" element={<UnderDevelopment />} />
+            {/* <Route path="/confirmOrder" element={<ConfirmOrder />} /> */}
+          </Routes>
+        </div>
         <Footer />
       </div>
     </Router>
