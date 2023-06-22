@@ -42,7 +42,7 @@ const Listing = ( {furniture} ) => {
                 <p>Filter By</p>
                 </button>
 
-                <div className="relative inline-block flex flex-row z-10" onClick={toggleDropdown} onMouseLeave={handleMouseLeave}>
+                <div className="relative inline-block flex flex-row z-20" onClick={toggleDropdown} onMouseLeave={handleMouseLeave}>
                 <p className='mx-2'>Sort By</p>
                 <button
                     className="dropdown-toggle"
@@ -72,8 +72,8 @@ const Listing = ( {furniture} ) => {
         </div>
 
         <div className="w-3/4 bg-white dark:bg-gray-900 border border-gray-300 border-t-1 border-l-0 border-r-0 border-b-0 mx-auto">
-            <div className="mx-auto w-full max-w-screen-xl py-6 lg:py-8 flex flex-row">
-                <div className="grid grid-cols-3 gap-x-12 gap-y-8 my-8">
+            <div className="mx-auto w-full max-w-screen py-6 lg:py-8 flex flex-row">
+                <div className="grid grid-cols-1 gap-x-12 gap-y-8 my-8 lg:grid-cols-2 xl:grid-cols-3">
                     {furniture.map((item) => (
                     <Link to={`/details/${item.id}`} className="mx-auto drop-shadow-lg" key={item.id}>
                         <img className='w-full rounded' src={item.image_path}></img>

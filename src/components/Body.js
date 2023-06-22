@@ -13,7 +13,7 @@ const Body = () => {
             <p>SHOP BY CATEGORIES</p>
         </div>
 
-        <div class="flex justify-center items-center text-xl">
+        <div class="flex flex-col justify-center items-center text-xl space-y-4 lg:flex-row">
             <Link to={'/beds'}>
                 <div class="mx-16 border border-black w-64 h-64 flex flex-col items-center justify-center">
                     <img src="../images/bed.png"></img>
@@ -36,14 +36,14 @@ const Body = () => {
     </div>
 
     <div className='flex flex-col w-full'>
-        <div className='mt-20'>
+        <div className='hidden lg:block mt-20'>
             <Link to={'/all'}>
-                <img src='../images/sample-image-3.jpg'></img>
+                <img className='p-6' src='../images/sample-image-3.jpg'></img>
             </Link>
         </div>
-        <div className='flex flex-row justify-between'>
+        <div className='flex flex-col justify-between lg:flex-row'>
             <Link to={'/all'}>
-                <img className='p-6' src='../images/sample-image-4-half.jpg'></img>
+                <img  className='p-6' src='../images/sample-image-4-half.jpg'></img>
             </Link>
             <Link to={'/all'}>
                 <img className='p-6' src='../images/sample-image-5-half.jpg'></img>

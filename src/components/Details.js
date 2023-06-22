@@ -69,7 +69,7 @@ const Details = ({ savedItems, onChange }) => {
       
               // Update the savedItems state after successful creation
               const updatedSavedItems = [...savedItems, newSavedItem];
-              onChange(updatedSavedItems); // Call the onChange prop to update the parent component's state
+              onChange(updatedSavedItems);
             } else {
               // Handle error response here
               console.error("Failed to create saved item.");
@@ -85,13 +85,13 @@ const Details = ({ savedItems, onChange }) => {
     <>
         <div className='bg-white w-full border border-gray-300 border-t-1 border-l-0 border-r-0 border-b-0'></div>
         <div className='w-3/4 mx-auto flex flex-col justify-between py-24'>
-            <div className='grid grid-cols-2 gap-4 justify-between w-full mx-auto'>
-                <div className='w-fit border borer-gray-300 mr-8 drop-shadow-lg'>
+            <div className='grid grid-cols-1 gap-4 justify-between w-full mx-auto items-center lg:grid-cols-2'>
+                <div className='w-full mr-8 drop-shadow-lg'>
                     <img src={`${furniture.image_path}`}></img>
                 </div>
-                <div className='w-fit ml-8 mt-16'>
+                <div className='w-full ml-8 mt-16 text-left'>
                     <div className='flex flex-col'>
-                        <div className='flex flex-col text-left'>
+                        <div className='flex flex-col lg:text-left'>
                             <p className='text-3xl'>{furniture.name}</p>
                             <p className='text-2xl mt-2'>USD {furniture.price}</p>
                             <p className='mt-2 text-lg'>SKU : {furniture.sku}</p>
@@ -113,7 +113,7 @@ const Details = ({ savedItems, onChange }) => {
                             </div>
                         </div>
                         <Link onClick={() => handleSavedItemCreation(true, false, quantity)} className='w-52 h-12 bg-green-500 hover:bg-green-700'>
-                            <p className='text-xl text-white my-2 mx-auto'>Add To Cart</p>
+                            <p className='text-xl text-white my-2 mx-auto text-center'>Add To Cart</p>
                         </Link>
                         <div className='border border-gray-200 my-4'></div>
                         <div className='flex flex-col border-gray-200 text-left'>
@@ -126,15 +126,15 @@ const Details = ({ savedItems, onChange }) => {
                 </div>
             </div>
         </div>
-        <div className='w-3/4 mx-auto flex flex-col justify-between'>
-            <p className='text-xl ml-16 mb-2'>PRODUCT DESCRIPTION</p>
-            <div className='w-full px-16 py-12 border border-gray-200 text-xl'>
-                <p className='mb-6 font-medium text-left'>{furniture.description}</p>
+        <div className='w-3/4 mx-auto flex flex-col'>
+            <p className='text-xl mb-2'>PRODUCT DESCRIPTION</p>
+            <div className='text-left w-full px-8 py-6 border border-gray-200 text-sm md:text-xl px-16 py-12'>
+                <p className='mb-6 font-medium'>{furniture.description}</p>
             </div>
         </div>
         <div className='w-3/4 mx-auto flex flex-col justify-between mt-24'>
             <p className='text-2xl'>Products similar to this item</p>
-            <div className="grid grid-rows-1 grid-cols-3 gap-x-16 gap-y-8 my-8 drop-shadow-md">
+            <div className="grid grid-rows-1 grid-cols-1 gap-x-16 gap-y-8 my-8 drop-shadow-md sm:grid-cols-2 lg:grid-cols-3">
                     {similarFurniture.map((furniture) => (
                         <Link key={furniture.id} to={`/details/${furniture.id}`} onClick={() => window.scrollTo(0, 0)}>
                         <div className="w-full mx-auto">

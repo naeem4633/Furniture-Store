@@ -8,11 +8,11 @@ const Footer = () => {
     <div class="mx-auto w-full max-w-screen px-24 py-6 lg:py-8">
         <div class="md:flex md:justify-between">
           <div class="mb-6 md:mb-0">
-              <a href="/" class="flex items-center">
-                  <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">IKEA Home</span>
+              <a href="/" class="">
+                  <span class="text-2xl font-semibold whitespace-nowrap dark:text-white">IKEA Home</span>
               </a>
           </div>
-          <div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-2">
+          <div class="grid grid-cols-1 gap-8 sm:gap-6 md:grid-cols-2">
               <div>
                   <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Follow us</h2>
                   <ul class="text-gray-600 dark:text-gray-400 font-medium">

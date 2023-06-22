@@ -5,7 +5,7 @@ const Login = () => {
     <>
         <div className='w-full border border-gray-300 border-t-1 border-l-0 border-r-0 border-b-0'>
             <div className='w-3/4 mx-auto flex flex-col justify-between py-24'>
-                <div className='grid grid-cols-2 gap-20 justify-between w-full mx-auto'>
+                <div className='grid grid-cols-1 gap-20 justify-between w-full mx-auto lg:grid-cols-2'>
                     <div className='w-full mr-8 flex flex-col'>
                         <p className='font-medium text-4xl mb-4'>Login With Your Account</p>
                         <div className='w-full border border-gray-200 mb-3'></div>
