@@ -11,6 +11,7 @@ import Wishlist from './components/Wishlist';
 import Cart from './components/Cart';
 import Checkout from './components/Checkout';
 import UnderDevelopment from './components/UnderDevelopment';
+import Register from './components/Register';
 
 export default function App() {
   const [furniture, setFurniture] = useState([]);
@@ -56,6 +57,7 @@ export default function App() {
             <Route path="/cart" element={<Cart />} />
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/under-development" element={<UnderDevelopment />} />
+            <Route path="/registration" element={<Register />} />
             {/* <Route path="/confirmOrder" element={<ConfirmOrder />} /> */}
           </Routes>
         </div>
