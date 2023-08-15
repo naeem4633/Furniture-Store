@@ -38,7 +38,7 @@ const Listing = ( {furniture} ) => {
         <div className="bg-white dark:bg-gray-900 border border-gray-200 border-t-1 border-l-0 border-r-0 border-b-0">
             <div className="mx-auto w-full max-w-screen px-24 py-6 lg:py-8 flex flex-row justify-center">
                 <button className="flex flex-row justify-between mx-10">
-                <img className="w-6 mx-3" src="../images/filter.png" alt="Filter icon"></img>
+                <img className="w-6 mx-3" src="../static/images/filter.png" alt="Filter icon"></img>
                 <p>Filter By</p>
                 </button>
 
@@ -51,7 +51,7 @@ const Listing = ( {furniture} ) => {
                     aria-haspopup="true"
                     aria-expanded={dropdownOpen}
                 >
-                <img src="../images/down-arrow.png" alt="Down arrow icon" className="w-6 h-6" />
+                <img src="../static/images/down-arrow.png" alt="Down arrow icon" className="w-6 h-6" />
                 </button>
                 {dropdownOpen && (
                     <ul className="bg-white absolute w-48 transform translate-y-1/3 -translate-x-1/4 rounded border-2 border-gray-300 drop-shadow-lg" aria-labelledby="filterDropdown">

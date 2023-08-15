@@ -101,14 +101,14 @@ const Details = ({ savedItems, onChange }) => {
                         <div className='flex flex-col border-gray-200 my-6'>
                             <div className='flex flex-row'>
                                 <button onClick={() => setQuantity(quantity > 1 ? quantity - 1 : 1)} className='w-12 h-12 bg-green-500 hover:bg-green-700'>
-                                    <img className='w-6 m-3' src='../images/minus.png'></img>
+                                    <img className='w-6 m-3' src='../static/images/minus.png'></img>
                                 </button>
                                 <p className='border border-green-500 w-24 h-12 mx-2 px-11 pt-2.5 text-lg'>{quantity}</p>
                                 <button onClick={() => setQuantity(quantity + 1)} className='w-12 h-12 bg-green-500 hover:bg-green-700'>
-                                    <img className='w-6 m-3' src='../images/plus.png'></img>
+                                    <img className='w-6 m-3' src='../static/images/plus.png'></img>
                                 </button>
                                 <Link onClick={() => handleSavedItemCreation(false, true)} className=' bg-white hover:bg-gray-200 w-12 h-12 p-3 border border-gray-300 mx-2'>
-                                    <img src='../images/heart.png'></img>
+                                    <img src='../static/images/heart.png'></img>
                                 </Link>
                             </div>
                         </div>

@@ -61,7 +61,7 @@ const Header = ({furniture, savedItems, onChange}) => {
     </p>
     <nav className='bg-white border border-gray-200 dark:bg-gray-900 flex justify-between p-2'>
       <Link to={'/'} class="flex items-center ml-6 md:ml-24">
-            <img src="../images/sofa.png" class="h-8 mr-3" alt="..." /> 
+            <img src="../static/images/sofa.png" class="h-8 mr-3" alt="..." /> 
             <span class="self-center text-md md:text-2xl font-semibold whitespace-nowrap dark:text-white">IKEA Home</span>
       </Link>
       
@@ -105,13 +105,13 @@ const Header = ({furniture, savedItems, onChange}) => {
         <ul className='flex flex-row space-x-3 md:space-x-6'>
           <li>
             <Link to={'/login'} class="block p-2 text-white rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500" aria-current="page">
-                <img className='h-4 md:h-8' src='../images/user.png'></img>
+                <img className='h-4 md:h-8' src='../static/images/user.png'></img>
             </Link>
           </li>
           <li>
             <Link onClick={() => {setWishlistIsHovered(true); setCartIsHovered(false);}}
                 className="block p-2 text-black rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
-                <img  className="h-4 md:h-8" src="../images/heart.png" alt="cart" />
+                <img  className="h-4 md:h-8" src="../static/images/heart.png" alt="cart" />
                 {wishlistIsHovered && (
                   <div onMouseEnter={() => setWishlistIsHovered(true)}
                   onMouseLeave={() => setWishlistIsHovered(false)} className="popover absolute w-80 max-h-[75vh] bg-white rounded flex-col right-0 my-3 mx-1 drop-shadow-lg z-10 md:w-96">
@@ -138,7 +138,7 @@ const Header = ({furniture, savedItems, onChange}) => {
                                       {item.furniture.name} ({item.quantity})
                                     </p>
                                     <img
-                                      src="../images/delete.png"
+                                      src="../static/images/delete.png"
                                       className="h-4 mt-2"
                                       onClick={() => handleDelete(item.id)}
                                       alt="delete"
@@ -161,7 +161,7 @@ const Header = ({furniture, savedItems, onChange}) => {
               onClick={() => {setCartIsHovered(true); setWishlistIsHovered(false);}}
               className="block p-2 text-black rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
             >
-              <img className="h-4 md:h-8" src="../images/cart.png" alt="cart" />
+              <img className="h-4 md:h-8" src="../static/images/cart.png" alt="cart" />
               {cartIsHovered && (
                 <div onMouseEnter={() => setCartIsHovered(true)}
                 onMouseLeave={() => setCartIsHovered(false)} className="popover absolute w-80 max-h-[75vh] bg-white rounded flex-col right-0 my-3 mx-1 drop-shadow-lg z-10 md:w-96">
@@ -189,7 +189,7 @@ const Header = ({furniture, savedItems, onChange}) => {
                                       {item.furniture.name} ({item.quantity})
                                     </p>
                                     <img
-                                      src="../images/delete.png"
+                                      src="../static/images/delete.png"
                                       className="h-4 mt-2"
                                       onClick={() => handleDelete(item.id)}
                                       alt="delete"

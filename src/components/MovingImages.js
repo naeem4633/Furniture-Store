@@ -23,14 +23,14 @@ const MovingImages = () => {
         <div>
           <img
             className="hidden"
-            src={isMobile ? "../images/sample-image-1-mobile.jpg" : "../images/sample-image-1.jpg"}
+            src={isMobile ? "../static/images/sample-image-1-mobile.jpg" : "../static/images/sample-image-1.jpg"}
             alt="Slide 1"
           />
         </div>
         <div>
           <img
             className="hidden"
-            src={isMobile ? "../images/sample-image-2-mobile.jpg" : "../images/sample-image-2.jpg"}
+            src={isMobile ? "../static/images/sample-image-2-mobile.jpg" : "../static/images/sample-image-2.jpg"}
             alt="Slide 2"
           />
         </div>
