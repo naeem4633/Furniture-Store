@@ -75,8 +75,8 @@ const Listing = ( {furniture} ) => {
             <div className="mx-auto w-full max-w-screen py-6 lg:py-8 flex flex-row">
                 <div className="grid grid-cols-1 gap-x-12 gap-y-8 my-8 lg:grid-cols-2 xl:grid-cols-3">
                     {furniture.map((item) => (
-                    <Link to={`/details/${item.id}`} className="mx-auto drop-shadow-lg" key={item.id}>
-                        <img className='w-full rounded' src={item.image_path}></img>
+                    <Link to={`/details/${item.id}`} className="mx-auto drop-shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out" key={item.id}>
+                        <img className='w-full rounded' src={item.image_path} alt={item.name} />
                         <div className='flex flex-col justify-between my-6 h-14 text-left text-xl'>
                         <p>{item.name}</p>
                         <p className='font-medium'>USD {item.price}</p>

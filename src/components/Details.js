@@ -136,7 +136,7 @@ const Details = ({ savedItems, onChange }) => {
             <p className='text-2xl'>Products similar to this item</p>
             <div className="grid grid-rows-1 grid-cols-1 gap-x-16 gap-y-8 my-8 drop-shadow-md sm:grid-cols-2 lg:grid-cols-3">
                     {similarFurniture.map((furniture) => (
-                        <Link key={furniture.id} to={`/details/${furniture.id}`} onClick={() => window.scrollTo(0, 0)}>
+                        <Link className='hover:scale-105 transition-transform duration-300 ease-in-out' key={furniture.id} to={`/details/${furniture.id}`} onClick={() => window.scrollTo(0, 0)}>
                         <div className="w-full mx-auto">
                           <img className="rounded" src={`${furniture.image_path}`} alt={furniture.name} />
                           <div className="flex flex-col justify-between my-6 h-14 text-left text-xl">
